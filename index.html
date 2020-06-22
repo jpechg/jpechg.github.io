@@ -1,94 +1,62 @@
 <!DOCTYPE html>
 <html>
-  <title>google.com</title>
-  <head>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous"/>
-    <style>
-      html, body {
-      display: flex;
-      justify-content: center;
-      font-family: Roboto, Arial, sans-serif;
-      font-size: 15px;
-      }
-      form {
-      border: 5px solid #f1f1f1;
-      }
-      input[type=text], input[type=password] {
-      width: 100%;
-      padding: 16px 8px;
-      margin: 8px 0;
-      display: inline-block;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-      }
-      .icon {
-      font-size: 110px;
-      display: flex;
-      justify-content: center;
-      color: #4286f4;
-      }
-      button {
-      background-color: #4286f4;
-      color: white;
-      padding: 14px 0;
-      margin: 10px 0;
-      border: none;
-      cursor: grab;
-      width: 48%;
-      }
-      h1 {
-      text-align:center;
-      font-size: 18;
-      }
-      button:hover {
-      opacity: 0.8;
-      }
-      .formcontainer {
-      text-align: center;
-      margin: 24px 50px 12px;
-      }
-      .container {
-      padding: 16px 0;
-      text-align:left;
-      }
-      span.psw {
-      float: right;
-      padding-top: 0;
-      padding-right: 15px;
-      }
-      /* Change styles for span on extra small screens */
-      @media screen and (max-width: 300px) {
-        span.psw {
-        display: block;
-        float: none;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <form action="/action_page.php">
-      <div class="icon">
-        <img src="https://www.misprogramas.es/sites/default/files/styles/logos/public/content/logos/editor/googleinc_2.png?itok=naEwR_K5">
-      </div>
-      <h1>Iniciar sesión</h1>
-      <h1 style=color:darkgray>Ir a Gmail</h1>
-      <div class="formcontainer">
-      <div class="container">
-        <label for="uname"><strong>Username</strong></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
-        <label for="mail"><strong>E-mail</strong></label>
-        <input type="text" placeholder="Enter E-mail" name="mail" required>
-        <label for="psw"><strong>Password</strong></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-      </div>
-      <button type="submit"><strong>SIGN UP</strong></button>
-      <div class="container" style="background-color: #eee">
-        <label style="padding-left: 15px">
-        <input type="checkbox"  checked="checked" name="remember"> Remember me
-        </label>
-        <span class="psw"><a href="https://www.rockstargames.com/">Forgot password?</a></span>
-      </div>
-    </form>
-  </body>
-</html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #444c5c;
+  background: linear-gradient(to bottom, #444c5c, #b51b1b);
+  overflow-x: hidden;
+}
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.sidenav a:hover {
+  color:#189f9f ;
+}
+
+.main {
+  background-color:#fcb045;
+  margin-left: 160px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="sidenav">
+  <a href="#about">About</a>
+  <a href="#services">Services</a>
+  <a href="#clients">Clients</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<div class="main">
+  <h2>Sidebar</h2>
+  <p>This sidebar is of full height (100%) and always shown.</p>
+  <p>Scroll down the page to see the result.</p>
+  <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+  <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+  <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+  <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+</div>
+
+</body>
+</html> 
