@@ -35,4 +35,15 @@
     "Pan", "Queso", "Jamón", "Huevo", "Arroz", "Lentejas", "Garbanzos", "Filete",
     "Pollo asado", "Salmón", "Gambas", "Langosta", "Donut", "Galleta", "Palomitas", "Sándwich"
   ]
+  "Eu Pombo": [
+        "Benidorm", "Womp womp", "Lorenzo lamas", "Perro flauta", "Putero", "Gitanos", "Moros", "Lethal company", 
+        "Minecraft", "Epstein", "Papa noel", "Padel", "Futbol", "Frontenis", "Chill", "Barras", "Casa mario", "Olimpia"
+  ],
+  "Tecnologia": [
+        "Radio", "Television", "Videojuego", "Fortnite", "Smartphone", "Ordenador", "Internet", "Bluetooth", "Wifi", "Inteligencia artificial",
+        "Robótica", "Altavoz", "Auriculares", "Cámara", "Tablet", "Consola", "Streaming", "Algoritmo", "Blockchain", "Criptomoneda",
+        "Metaverso", "Microchip", "Pantalla", "Teclado", "Ratón", "Impresora", "Fibra óptica", "Satélite", "Navegador", "Aplicación",
+        "Software", "Hardware", "Servidor", "Nube", "Realidad virtual", "Realidad aumentada", "Dron", "TikTok", "Instagram", "WhatsApp",
+        "YouTube", "Netflix", "Spotify", "Discord", "Twitch", "Roblox", "Call of Duty", "League of Legends", "Zelda", "Super Mario"
+  ]
 }
