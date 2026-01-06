@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impostor</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --container-bg: #2a2a2a;
+            --text-color: #e0e0e0;
+            --accent-color: #4CAF50; /* Green */
+            --danger-color: #ff5252;  /* Red */
+            --highlight-color: #2196F3; /* Blue */
+            --warning-color: #FFC107; /* Amber */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--container-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        h1, h2, h3 { margin-top: 0; font-weight: 300; }
+        
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: 1px solid #444;
+            background-color: #333;
+            color: white;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        button {
+            cursor: pointer;
+            font-weight: bold;
+            background-color: var(--accent-color);
+            border: none;
+            transition: opacity 0.2s;
+        }
+
+        button:hover { opacity: 0.9; }
+        button.danger { background-color: var(--danger-color); }
+
+        .player-list {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            margin-top: 1rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .player-list li {
+            background-color: #383838;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .player-list li:hover {
+            background-color: var(--danger-color);
+        }
+
+        .player-list li::after {
+            content: '×';
+            font-weight: bold;
+        }
+
+        .screen { display: none; }
+        .active { display: block; }
+
+        .big-text {
+            font-size: 2rem;
+            margin: 2rem 0;
+            color: var(--highlight-color);
+            font-weight: bold;
+        }
+
+        .role-reveal {
+            font-size: 1.5rem;
+            padding: 2rem;
+            background: #333;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .impostor-bg { border: 2px solid var(--danger-color); }
+        .normal-bg { border: 2px solid var(--accent-color); }
+
+        .label-text {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            color: #888;
+        }
+
+        .value-text {
+            font-weight: bold;
+            font-size: 1.8rem;
+        }
+
+        .config-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        #start-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;c
+            background-color: var(--bg-color); /* Usa el color de fondo de tu juego */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: left;
+            cursor: pointer;
+            z-index: 1000; /* Asegura que esté por encima de todo */
+            transition: opacity 0.5s ease-out; /* Transición suave al desaparecer */
+        }
+
+        #start-screen.hidden {
+            opacity: 0;
+            pointer-events: none; /* Deshabilita clics cuando está oculto */
+        }
+
+        #start-screen pre {
+            font-family: monospace;
+            white-space: pre;
+            line-height: 1.2;
+            color: var(--highlight-color); /* Color para el arte ASCII */
+            background-color: transparent;
+            overflow-x: auto;
+            max-width: 90%; /* Para que quepa en pantallas pequeñas */
+            font-size: 0.8em; /* Ajusta el tamaño si es demasiado grande */
+            margin-bottom: 20px;
+        }
+
+        #start-screen .tap-to-start {
+            color: var(--text-color);
+            font-size: 1.2rem;
+            margin-top: 20px;
+            animation: pulse 1.5s infinite alternate; /* Efecto de parpadeo */
+        }
+
+        @keyframes pulse {
+            from { opacity: 1; }
+            to { opacity: 0.6; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="screen-setup" class="screen">
+        <h2>Game Setup</h2>
+        
+        <div class="config-row">
+            <input type="text" id="new-player-name" placeholder="Enter player name...">
+            <button onclick="addPlayer()" style="width: auto;">Add</button>
+        </div>
+
+        <ul id="active-players-list" class="player-list"></ul>
+        
+        <div style="margin-top: 1rem; border-top: 1px solid #444; padding-top: 1rem;">
+            <select id="deleted-players-select" onchange="restorePlayer()">
+                <option value="" disabled selected>Restore deleted player...</option>
+            </select>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #444; margin: 1.5rem 0;">
+
+        <h3>Settings</h3>
+        <select id="topic-select">
+            </select>
+        
+        <div class="config-row">
+            <label style="width: 100%; text-align: left;">Impostor Count:</label>
+            <input type="number" id="impostor-count" min="1" value="1" style="width: 80px;">
+        </div>
+
+        <button onclick="startGame()" style="margin-top: 1rem;">START GAME</button>
+    </div>
+
+    <div id="screen-pass" class="screen">
+        <h3>Pass the device to:</h3>
+        <div id="current-player-name" class="big-text">Player Name</div>
+        <button onclick="revealRole()">Show Role</button>
+    </div>
+
+    <div id="screen-reveal" class="screen">
+        <h3>Your Secret</h3>
+        <div id="role-content" class="role-reveal">
+            </div>
+        <button id="next-btn" onclick="nextPlayer()">Next Player</button>
+    </div>
+
+    <div id="screen-end" class="screen">
+        <h2>All roles assigned!</h2>
+        <p>The game is now in progress.</p>
+        <button class="danger" onclick="revealImpostors()">Stop & Reveal Impostors</button>
+    </div>
+
+    <div id="screen-results" class="screen">
+        <h2>Game Over</h2>
+        <p>The impostor(s) were:</p>
+        <div id="impostor-reveal-list" class="big-text" style="color: var(--danger-color);"></div>
+        
+        <div style="background: #333; padding: 10px; border-radius: 6px; margin: 10px 0;">
+            <p style="margin:5px 0; color: #888;">The word was:</p>
+            <h3 id="reveal-word" style="color: var(--accent-color);"></h3>
+        </div>
+
+        <button onclick="resetGame()">New Game</button>
+    </div>
+
+</div>
+
+<script>
+gameData = {};
+
+    // --- STATE MANAGEMENT ---
+    let players = [];
+    let deletedPlayers = [];
+    let gameSession = {
+        players: [], // shuffled list
+        impostors: [], // list of names
+        currentWord: "",
+        currentTopic: "",
+        currentIndex: 0
+    };
+
+    // --- DOM ELEMENTS ---
+    const screens = {
+        setup: document.getElementById('screen-setup'),
+        pass: document.getElementById('screen-pass'),
+        reveal: document.getElementById('screen-reveal'),
+        end: document.getElementById('screen-end'),
+        results: document.getElementById('screen-results')
+    };
+
+    // --- INITIALIZATION ---
+    window.onload = () => {
+        showScreen('setup');
+        loadFromStorage();
+        populateTopics();
+        renderPlayerList();
+        renderDeletedDropdown();
+    };
+
+    function showScreen(screenName) {
+        Object.values(screens).forEach(s => s.classList.remove('active'));
+        screens[screenName].classList.add('active');
+    }
+
+    // --- SETUP LOGIC ---
+    
+    function addPlayer() {
+        const input = document.getElementById('new-player-name');
+        const name = input.value.trim();
+        if (name && !players.includes(name)) {
+            players.push(name);
+            saveToStorage();
+            renderPlayerList();
+            input.value = '';
+        }
+    }
+
+    function removePlayer(index) {
+        const removed = players.splice(index, 1)[0];
+        if (!deletedPlayers.includes(removed)) {
+            deletedPlayers.push(removed);
+        }
+        saveToStorage();
+        renderPlayerList();
+        renderDeletedDropdown();
+    }
+
+    function restorePlayer() {
+        const select = document.getElementById('deleted-players-select');
+        const name = select.value;
+        if (name) {
+            players.push(name);
+            deletedPlayers = deletedPlayers.filter(p => p !== name);
+            saveToStorage();
+            renderPlayerList();
+            renderDeletedDropdown();
+            select.value = ""; 
+        }
+    }
+
+    function renderPlayerList() {
+        const list = document.getElementById('active-players-list');
+        list.innerHTML = '';
+        players.forEach((player, index) => {
+            const li = document.createElement('li');
+            li.innerText = player;
+            li.onclick = () => removePlayer(index);
+            list.appendChild(li);
+        });
+    }
+
+    function renderDeletedDropdown() {
+        const select = document.getElementById('deleted-players-select');
+        select.innerHTML = '<option value="" disabled selected>Restore deleted player...</option>';
+        deletedPlayers.forEach(p => {
+            const opt = document.createElement('option');
+            opt.value = p;
+            opt.innerText = p;
+            select.appendChild(opt);
+        });
+    }
+
+    function saveToStorage() {
+        localStorage.setItem('game_players', JSON.stringify(players));
+        localStorage.setItem('game_deleted', JSON.stringify(deletedPlayers));
+    }
+
+    function loadFromStorage() {
+        const p = localStorage.getItem('game_players');
+        const d = localStorage.getItem('game_deleted');
+        if (p) players = JSON.parse(p);
+        if (d) deletedPlayers = JSON.parse(d);
+    }
+
+    // --- GAME LOGIC ---
+    async function populateTopics() {
+        try {
+            const response = await fetch('gameData.json');
+            if (!response.ok) throw new Error('No se pudo cargar el archivo JSON');
+            
+            gameData = await response.json();
+            
+            const select = document.getElementById('topic-select');
+            select.innerHTML = "";
+            Object.keys(gameData).forEach(topic => {
+                const opt = document.createElement('option');
+                opt.value = topic;
+                opt.innerText = topic;
+                select.appendChild(opt);
+            });
+        } catch (error) {
+            console.error("Error cargando categorías:", error);
+            alert("Error: Asegúrate de que gameData.json esté en la misma carpeta.");
+        }
+    }
+    function startGame() {
+        if (players.length < 3) {
+            alert("Need at least 3 players!");
+            return;
+        }
+
+        const impostorCount = parseInt(document.getElementById('impostor-count').value);
+        if (impostorCount >= players.length) {
+            alert("Too many impostors for player count.");
+            return;
+        }
+
+        const selectedTopic = document.getElementById('topic-select').value;
+        const wordList = gameData[selectedTopic];
+        
+        // Random word from the array
+        const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
+
+        // Shuffle players
+        const shuffledPlayers = [...players].sort(() => 0.5 - Math.random());
+        
+        // Pick impostors
+        const impostors = [];
+        const indices = new Set();
+        while(indices.size < impostorCount) {
+            indices.add(Math.floor(Math.random() * players.length));
+        }
+        indices.forEach(i => impostors.push(shuffledPlayers[i]));
+
+        // Initialize Session
+        gameSession = {
+            players: shuffledPlayers,
+            impostors: impostors,
+            currentWord: randomWord,
+            currentTopic: selectedTopic,
+            currentIndex: 0
+        };
+
+        playTurn();
+    }
+
+    function playTurn() {
+        if (gameSession.currentIndex >= gameSession.players.length) {
+            showScreen('end');
+            return;
+        }
+
+        const currentPlayer = gameSession.players[gameSession.currentIndex];
+        document.getElementById('current-player-name').innerText = currentPlayer;
+        showScreen('pass');
+    }
+
+    function revealRole() {
+        const currentPlayer = gameSession.players[gameSession.currentIndex];
+        const isImpostor = gameSession.impostors.includes(currentPlayer);
+        const container = document.getElementById('role-content');
+        
+        container.innerHTML = '';
+        // Reset classes
+        container.classList.remove('impostor-bg', 'normal-bg');
+
+        if (isImpostor) {
+            // IMPOSTOR VIEW: Shows the Category
+            container.classList.add('impostor-bg');
+            
+            container.innerHTML = `
+                <div style="color: var(--danger-color); font-weight:bold; margin-bottom:10px;">YOU ARE AN IMPOSTOR</div>
+                <div class="label-text">The Category is</div>
+                <div class="value-text" style="color: #fff;">${gameSession.currentTopic}</div>
+                <div class="label-text" style="margin-top:10px; font-size:0.8rem;">Try to blend in!</div>
+            `;
+        } else {
+            // NORMAL VIEW: Shows the Word
+            container.classList.add('normal-bg');
+            
+            container.innerHTML = `
+                <div style="color: var(--accent-color); font-weight:bold; margin-bottom:10px;">YOU ARE NORMAL</div>
+                <div class="label-text">The Word is</div>
+                <div class="value-text" style="color: #fff;">${gameSession.currentWord}</div>
+            `;
+        }
+
+        showScreen('reveal');
+    }
+
+    function nextPlayer() {
+        gameSession.currentIndex++;
+        playTurn();
+    }
+
+    function revealImpostors() {
+        document.getElementById('impostor-reveal-list').innerText = gameSession.impostors.join(", ");
+        document.getElementById('reveal-word').innerText = gameSession.currentWord;
+        showScreen('results');
+    }
+
+    function resetGame() {
+        showScreen('setup');
+    }
+
+</script>
+
+</body>
+</html>

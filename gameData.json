@@ -1,0 +1,38 @@
+{
+  "Deporte": [
+    "Fútbol", "Baloncesto", "Tenis", "Golf", "Boxeo", "Natación", "Atletismo", "Ciclismo",
+    "Voleibol", "Béisbol", "Rugby", "Hockey", "Esquí", "Surf", "Judo", "Karate",
+    "Gimnasia", "Fórmula 1", "Motociclismo", "Esgrima", "Ping Pong", "Bádminton", "Waterpolo",
+    "Escalada", "Patinaje", "Remo", "Vela", "Piragüismo", "Salto de longitud", "Maratón",
+    "Triatlón", "Senderismo", "Pádel", "Squash", "Críquet", "Curling", "Lacrosse", "Polo",
+    "Ajedrez", "Dardos"
+  ],
+  "Famosos": [
+    "Lionel Messi", "Cristiano Ronaldo", "Shakira", "Elon Musk", "Rosalía", "Brad Pitt", "Angelina Jolie", "Will Smith",
+    "Beyoncé", "Rihanna", "Lady Gaga", "Tom Cruise", "Jennifer Lopez", "Dwayne Johnson", "Taylor Swift", "Justin Bieber",
+    "LeBron James", "Rafael Nadal", "Pau Gasol", "Ibai Llanos", "Auronplay", "Penélope Cruz", "Bad Bunny", "J Balvin",
+    "Bill Gates", "Mark Zuckerberg", "Jeff Bezos", "Stephen Hawking", "Albert Einstein", "Marie Curie", "Leonardo DiCaprio", "Meryl Streep",
+    "Robert Downey Jr", "Scarlett Johansson", "Ariana Grande", "Kylie Jenner", "Kim Kardashian", "Kanye West", "Donald Trump", "Barack Obama"
+  ],
+  "Países": [
+    "España", "México", "Argentina", "Colombia", "Chile", "Perú", "Brasil", "Estados Unidos",
+    "Canadá", "Francia", "Italia", "Alemania", "Reino Unido", "Japón", "China", "Corea del Sur",
+    "India", "Australia", "Egipto", "Sudáfrica", "Rusia", "Turquía", "Grecia", "Portugal",
+    "Países Bajos", "Bélgica", "Suiza", "Suecia", "Noruega", "Dinamarca", "Tailandia", "Vietnam",
+    "Marruecos", "Nigeria", "Kenia", "Nueva Zelanda", "Islandia", "Irlanda", "Polonia", "Cuba"
+  ],
+  "Animales": [
+    "León", "Tigre", "Elefante", "Jirafa", "Cebra", "Hipopótamo", "Rinoceronte", "Gorila",
+    "Oveja", "Vaca", "Caballo", "Cerdo", "Perro", "Gato", "Conejo", "Ratón",
+    "Águila", "Loro", "Pingüino", "Avestruz", "Cocodrilo", "Serpiente", "Tortuga", "Rana",
+    "Tiburón", "Delfín", "Ballena", "Pulpo", "Medusa", "Cangrejo", "Abeja", "Hormiga",
+    "Mariposa", "Araña", "Escorpión", "Panda", "Koala", "Canguro", "Lobo", "Zorro"
+  ],
+  "Comida": [
+    "Pizza", "Hamburguesa", "Sushi", "Tacos", "Pasta", "Ensalada", "Paella", "Tortilla de patatas",
+    "Croquetas", "Gazpacho", "Lasaña", "Ramen", "Burrito", "Ceviche", "Asado", "Empanada",
+    "Helado", "Chocolate", "Tarta de queso", "Churros", "Manzana", "Plátano", "Fresa", "Naranja",
+    "Pan", "Queso", "Jamón", "Huevo", "Arroz", "Lentejas", "Garbanzos", "Filete",
+    "Pollo asado", "Salmón", "Gambas", "Langosta", "Donut", "Galleta", "Palomitas", "Sándwich"
+  ]
+}
